@@ -9,8 +9,10 @@ const AutocompleteField = ({ name, label, options, ...props }) => {
     helpers.setValue(values);
   };
 
+
   return (
     <Autocomplete
+      noOptionsText = 'Не найдено'
       {...field}
       {...props}
       options={options}
