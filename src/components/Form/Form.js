@@ -11,11 +11,6 @@ import output from '../../api/output';
 
 const CustomForm = () => {
 
-    const onHandleSubmit = (e) => {
-        e.preventDefault()
-        console.log(e);
-        console.log('siaoi');
-    }
 
     const floors = useMemo(() => Array.from({ length: 25 }, (_, i) => i + 3).map(item => ({label: `${item}`, id: `floor-${item}`,  value: item})), []);
     const meetings = useMemo(() => Array.from({ length: 10 }, (_, i) => i + 1).map(item => ({label: `${item}`, id: `meeting-${item}`, value: item})), []);
@@ -35,8 +30,9 @@ const CustomForm = () => {
                     .required('Обязательное поле!'),
                 meetingRoom: Yup.object()
                     .required('Обязательное поле!'),
-                dateAndTime: Yup.object()
-                    .required('Обязательное поле!'),
+                dateAndTime: Yup.date('dsd')
+                    .required('Обязательное поле!')
+                    .typeError('Пожалуйста, выберите дату и время'),
                 text: Yup.string(),
             })}
             onSubmit={(values) => {

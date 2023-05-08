@@ -1,25 +1,38 @@
 import React from 'react';
-import { useField, ErrorMessage } from 'formik';
+import { useField, Field } from 'formik';
 import { DateTimePicker } from '@mui/x-date-pickers';
-import { TextField } from '@mui/material';
+import dayjs from 'dayjs';
+
 
 const DateTimePickerField = ({ name, ...props }) => {
   const [field, meta, helpers] = useField(name);
   const handleChange = (event) => {
-    helpers.setValue(event);
+      helpers.setValue(event);
   };
 
   return (
-        <>
-          <DateTimePicker
-            label="Дата и время" 
-            width = {'100%'}
-            {...field}
-            {...props}
-            onChange={handleChange}
-            error={false}
-          />
-        </>
+        <Field name='dateAndTime'>
+          {() => {
+            return(
+              <DateTimePicker
+                minDate={dayjs()}
+                label="Дата и время" 
+                width = {'100%'}
+                {...field}
+                {...props}
+                value = {field.value}
+                onChange={(e) => {
+                    if(e.diff(dayjs()) > 0)
+                      handleChange(e);
+                    else {
+                      helpers.setValue(null);
+                    }
+                }}
+                error={false}
+              />
+            );
+          }}
+        </Field>
     
   );
 };
