@@ -1,0 +1,8 @@
+.form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    &__title{
+        min-height: 100px;
+    }
+}
